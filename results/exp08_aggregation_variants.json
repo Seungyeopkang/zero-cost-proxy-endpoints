@@ -1,0 +1,155 @@
+{
+  "settings": {
+    "n_calib": 2000,
+    "calibration_seed": 0,
+    "replace": false,
+    "ddof": 0,
+    "b_max": 1000
+  },
+  "rows": [
+    {
+      "dataset": "cifar10",
+      "variant": "arithmetic mean / raw score",
+      "worst_delta": -3.5814868448540977,
+      "worst_b": 2
+    },
+    {
+      "dataset": "cifar10",
+      "variant": "arithmetic mean / standardized score",
+      "worst_delta": -3.5814868448540977,
+      "worst_b": 2
+    },
+    {
+      "dataset": "cifar10",
+      "variant": "arithmetic mean / robust standardized score",
+      "worst_delta": -3.5814868448540977,
+      "worst_b": 2
+    },
+    {
+      "dataset": "cifar10",
+      "variant": "arithmetic mean / standardized score clipped at \u00b13",
+      "worst_delta": -0.37285831123679714,
+      "worst_b": 4
+    },
+    {
+      "dataset": "cifar10",
+      "variant": "arithmetic mean / percentile rank",
+      "worst_delta": -0.42928007176074345,
+      "worst_b": 106
+    },
+    {
+      "dataset": "cifar10",
+      "variant": "soft minimum / standardized score",
+      "worst_delta": -0.9853462016109233,
+      "worst_b": 11
+    },
+    {
+      "dataset": "cifar10",
+      "variant": "logarithmic sum / percentile rank",
+      "worst_delta": -0.6253459824268504,
+      "worst_b": 244
+    },
+    {
+      "dataset": "cifar10",
+      "variant": "minimum / percentile rank",
+      "worst_delta": -0.7027828477312141,
+      "worst_b": 569
+    },
+    {
+      "dataset": "cifar100",
+      "variant": "arithmetic mean / raw score",
+      "worst_delta": -13.705369552243859,
+      "worst_b": 1
+    },
+    {
+      "dataset": "cifar100",
+      "variant": "arithmetic mean / standardized score",
+      "worst_delta": -13.705369552243859,
+      "worst_b": 1
+    },
+    {
+      "dataset": "cifar100",
+      "variant": "arithmetic mean / robust standardized score",
+      "worst_delta": -13.705369552243859,
+      "worst_b": 1
+    },
+    {
+      "dataset": "cifar100",
+      "variant": "arithmetic mean / standardized score clipped at \u00b13",
+      "worst_delta": -1.377066187009774,
+      "worst_b": 2
+    },
+    {
+      "dataset": "cifar100",
+      "variant": "arithmetic mean / percentile rank",
+      "worst_delta": -0.36151169291053975,
+      "worst_b": 931
+    },
+    {
+      "dataset": "cifar100",
+      "variant": "soft minimum / standardized score",
+      "worst_delta": -3.1308042827418205,
+      "worst_b": 10
+    },
+    {
+      "dataset": "cifar100",
+      "variant": "logarithmic sum / percentile rank",
+      "worst_delta": -0.5837171180275504,
+      "worst_b": 890
+    },
+    {
+      "dataset": "cifar100",
+      "variant": "minimum / percentile rank",
+      "worst_delta": -0.629144099656429,
+      "worst_b": 1000
+    },
+    {
+      "dataset": "ImageNet16-120",
+      "variant": "arithmetic mean / raw score",
+      "worst_delta": -10.927267628226172,
+      "worst_b": 2
+    },
+    {
+      "dataset": "ImageNet16-120",
+      "variant": "arithmetic mean / standardized score",
+      "worst_delta": -14.767235719903834,
+      "worst_b": 6
+    },
+    {
+      "dataset": "ImageNet16-120",
+      "variant": "arithmetic mean / robust standardized score",
+      "worst_delta": -10.927267628226172,
+      "worst_b": 2
+    },
+    {
+      "dataset": "ImageNet16-120",
+      "variant": "arithmetic mean / standardized score clipped at \u00b13",
+      "worst_delta": -13.460600905610612,
+      "worst_b": 2
+    },
+    {
+      "dataset": "ImageNet16-120",
+      "variant": "arithmetic mean / percentile rank",
+      "worst_delta": 0.16873351835408812,
+      "worst_b": 1000
+    },
+    {
+      "dataset": "ImageNet16-120",
+      "variant": "soft minimum / standardized score",
+      "worst_delta": -13.460600905610612,
+      "worst_b": 2
+    },
+    {
+      "dataset": "ImageNet16-120",
+      "variant": "logarithmic sum / percentile rank",
+      "worst_delta": 0.16873351835408812,
+      "worst_b": 1000
+    },
+    {
+      "dataset": "ImageNet16-120",
+      "variant": "minimum / percentile rank",
+      "worst_delta": 0.16873351835408812,
+      "worst_b": 1000
+    }
+  ]
+}

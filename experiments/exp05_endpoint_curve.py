@@ -98,12 +98,20 @@ def main() -> None:
             end = np.maximum.accumulate(acc[np.argsort(-s)])[: args.b_max]
             delta = end - base
             store[f"{ds}/{name}"] = delta
+            # The paper reports both extrema of proxy-score ties, notably for
+            # flops and params. Keep the historical curve above for comparison.
+            lower = np.maximum.accumulate(acc[np.lexsort((acc, -s))])[: args.b_max] - base
+            upper = np.maximum.accumulate(acc[np.lexsort((-acc, -s))])[: args.b_max] - base
+            store[f"{ds}/{name}/tie_lower"] = lower
+            store[f"{ds}/{name}/tie_upper"] = upper
             g = float(spearmanr(s, acc).statistic)
             t = float(spearmanr(s[top10], acc[top10]).statistic)
             sb = safe_budget(delta)
             worst = float(delta.min()); wb = int(delta.argmin()) + 1
             meta.append({"dataset": ds, "scorer": name, "global_rho": g, "top10_rho": t,
                          "worst_delta": worst, "worst_b": wb, "safe_budget": sb,
+                         "tie_lower_at_20": float(lower[19]),
+                         "tie_upper_at_20": float(upper[19]),
                          "delta_at": {b: float(delta[b - 1]) for b in (5, 20, 100, 500)}})
             print(f"{name:22s}{g:8.3f}{t:10.3f}{worst:12.2f}{wb:6d}"
                   f"{(str(sb) if sb else '>%d' % args.b_max):>9}")

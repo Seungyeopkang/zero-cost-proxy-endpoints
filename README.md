@@ -9,6 +9,7 @@ Supplementary code and benchmark inputs for the study of zero-cost proxy selecti
 - `experiments/exp05_endpoint_curve.py`: exact endpoint and without-replacement random-baseline curves for budgets 1–1000.
 - `experiments/exp06_test_endpoint.py`: validation-selected test-accuracy endpoint analysis using the official NATS-Bench results.
 - `experiments/exp07_transnas_endpoint.py`: endpoint analysis on TransNAS-Bench-101 micro and macro spaces.
+- `experiments/exp08_aggregation_variants.py`: the eight controlled aggregation variants in Table 5(b).
 - `experiments/analyze_c1_paired.py`: cross-fitted paired analysis of the search experiment.
 - `experiments/fetch_nb201_test.py`: optional script to rebuild the compact official accuracy table from a local NATS-Bench TSS installation.
 - `tests/`: unit tests for the search-space and evaluation components.
@@ -63,6 +64,15 @@ python experiments/exp07_transnas_endpoint.py \
   --out results/reproduced/exp07_transnas
 ```
 
+The default `--rank-ties ordinal` reproduces the published Table 8. Use `--rank-ties strict` to apply the general percentile definition in Section IV to TransNAS scores with ties; its separate retained output is `results/exp07_transnas_strict.*`.
+
+Recompute the representation controls in Table 5(b):
+
+```bash
+python experiments/exp08_aggregation_variants.py \
+  --out results/reproduced/exp08_aggregation_variants.json
+```
+
 Recreate the cross-fitted paired analysis from the retained search logs:
 
 ```bash
@@ -74,6 +84,8 @@ python experiments/analyze_c1_paired.py \
 
 The first search log contains the original full run. The second contains the corrected architecture-keyed random-score control; when both files are read in this order, the corrected rows replace the corresponding original control rows.
 
+The search log's 20 scorers are 13 single proxies, four rank-based rules (`aznas_nl`, `aznas_l`, `soft_consensus[p=4]`, `worst_rank`), the standardized-score mean (`linear`), and two controls. `mean_rank` is evaluated in the endpoint experiments and has the same mathematical ranking as `aznas_l`, but has no separate search-run rows. See [reproducibility notes](REPRODUCIBILITY_NOTES.md) for discrepancies found against the final PDF.
+
 In aging evolution, the initial population of 50 is included in the `N` candidate evaluations. Repeated architectures are removed before selecting the top `B`. Across the 37,800 stored search records, the smallest deduplicated pool contained 75 architectures, so every recorded `B=20` run had enough distinct candidates.
 
 ## Data
@@ -83,6 +95,8 @@ In aging evolution, the initial population of 50 is included in the `N` candidat
 - `nb201_acc.npz` contains the official NATS-Bench 200-epoch, seed-averaged validation and test accuracies in the repository's architecture order.
 
 The original multi-gigabyte NATS-Bench archive is not included. To regenerate `nb201_acc.npz`, obtain and unpack the official NATS-Bench TSS data locally, then run `experiments/fetch_nb201_test.py --root <path-to-unpacked-tss-data>`. The proxy tables originate from NAS-Bench-Suite-Zero; consult the upstream dataset distribution for its attribution and terms.
+
+Rebuilding the compact official accuracy table also requires the optional `nats-bench` Python package.
 
 ## Output files
 

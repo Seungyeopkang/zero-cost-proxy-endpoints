@@ -75,11 +75,23 @@ def endpoint(acc, s, tie="opt"):
     return np.maximum.accumulate(acc[np.lexsort((key, -s))])[:B_MAX]
 
 
-def combos(raw: np.ndarray) -> dict[str, np.ndarray]:
-    """전 공간 기준 결합 규칙. 표현(점수/순위) x 결합함수."""
+def combos(raw: np.ndarray, rank_ties: str = "ordinal") -> dict[str, np.ndarray]:
+    """전 공간 기준 결합 규칙. ordinal reproduces the published Table 8.
+
+    strict applies the manuscript's general percentile definition: one plus
+    the number of proxy scores strictly below the candidate's score.
+    """
     z = (raw - raw.mean(0)) / np.where(raw.std(0) > 0, raw.std(0), 1.0)
     n = len(raw)
-    pr = np.apply_along_axis(lambda c: (np.argsort(np.argsort(c)) + 1) / n, 0, raw)
+    if rank_ties == "ordinal":
+        pr = np.apply_along_axis(lambda c: (np.argsort(np.argsort(c)) + 1) / n, 0, raw)
+    elif rank_ties == "strict":
+        pr = np.column_stack([
+            (np.searchsorted(np.sort(raw[:, j]), raw[:, j], side="left") + 1) / n
+            for j in range(raw.shape[1])
+        ])
+    else:
+        raise ValueError(f"unknown rank tie policy: {rank_ties}")
     return {
         "mean of standardized scores": z.mean(1),
         "mean percentile rank": pr.mean(1),
@@ -92,6 +104,8 @@ def combos(raw: np.ndarray) -> dict[str, np.ndarray]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="results/exp07_transnas")
+    ap.add_argument("--rank-ties", choices=("ordinal", "strict"), default="ordinal",
+                    help="ordinal reproduces Table 8; strict follows the IV percentile formula")
     args = ap.parse_args()
 
     rows, store = [], {}
@@ -116,7 +130,7 @@ def main() -> None:
             print(f"\n=== {space} / {task}  n={n}  acc {acc.min():.2f}..{acc.max():.2f} "
                   f"mean {acc.mean():.2f}  nonfinite proxy cells {int(bad.sum())}")
             scorers = {p: raw[:, j] for j, p in enumerate(PROXIES)}
-            scorers.update(combos(raw))
+            scorers.update(combos(raw, rank_ties=args.rank_ties))
             print(f"{'scorer':30s}{'d20':>8}{'worst':>9}{'@B':>6}{'P@worst':>9}  unsafe(<-1pp)")
             for name, s in scorers.items():
                 eo, ep = endpoint(acc, s, "opt"), endpoint(acc, s, "pes")

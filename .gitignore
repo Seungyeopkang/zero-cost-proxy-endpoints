@@ -38,6 +38,9 @@
 !/results/exp06_test_endpoint_favbounds.npz
 !/results/exp07_transnas.json
 !/results/exp07_transnas.npz
+!/results/exp07_transnas_strict.json
+!/results/exp07_transnas_strict.npz
+!/results/exp08_aggregation_variants.json
 
 # Local caches and editor artifacts
 /.playwright-mcp/

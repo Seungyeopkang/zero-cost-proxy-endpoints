@@ -5,7 +5,7 @@
   - 후보 수: N
 두 손잡이를 KL(개체군 || 균등) 하나의 축으로 통합해 최종 acc와의 관계를 본다.
 
-사전 등록 kill 기준 (RESEARCH_PLAN.md §5):
+실험 전에 정한 판정 기준 (공개 등록 없음):
   KILL-C1  : 최고 성능 KL 지점과 최대 KL 지점의 차이가 모든 조합에서 2 SEM 이내 -> C1 폐기
   KILL-C1b : 내부 최적점이 있어도 정점->최대KL 하락폭이 3개 데이터셋 모두 0.2pp 미만 -> 폐기
   GATE-C1  : anti-oracle이 KL에 따라 단조 악화하지 않으면 파이프라인 결함
@@ -75,6 +75,10 @@ def main() -> None:
                            "n_grid": N_GRID, "pressure_grid": PRESSURE_GRID}
     h = config_hash(config)
     out = Path(args.out) / f"exp03_{h}.jsonl"
+    # A rerun of the same configuration replaces its output rather than
+    # appending duplicate rows to the previous run.
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("", encoding="utf-8")
     append_jsonl(out, [run_header(config)])
 
     records = []
