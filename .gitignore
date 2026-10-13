@@ -1,0 +1,48 @@
+# Manuscript and publication assets
+/paper/
+
+# Local research notes
+/BASELINES.md
+/RESEARCH_DOMAIN.md
+/RESEARCH_PLAN.md
+/TODO.md
+
+# Early synthetic sweeps, superseded analyses, and document/reference tooling
+/experiments/exp01_n_sweep.py
+/experiments/exp02_k_sweep.py
+/experiments/exp04_endpoint_map.py
+/experiments/analyze_c1.py
+/experiments/analyze_c2.py
+/experiments/make_figures.py
+/experiments/make_tables.py
+/experiments/build_md.py
+/experiments/build_docx.py
+/experiments/build_hwpx.py
+/experiments/format_refs.py
+/experiments/verify_refs.py
+
+# Large local benchmark downloads and unused intermediate tables
+/data/nats/
+/data/nb201_cifar10_full_training.pickle
+/data/api_index_of_our_arch.npy
+/data/nb201_acc_apiorder.npz
+
+# Generated experiment outputs are ignored except the curated supplementary artifacts below.
+/results/*
+!/results/exp03_e1c77996195e.jsonl
+!/results/exp03_f1112324f45d.jsonl
+!/results/c1_paired_randomfix.json
+!/results/exp05_174c3d34171f.json
+!/results/exp05_174c3d34171f.npz
+!/results/exp06_test_endpoint_favbounds.json
+!/results/exp06_test_endpoint_favbounds.npz
+!/results/exp07_transnas.json
+!/results/exp07_transnas.npz
+
+# Local caches and editor artifacts
+/.playwright-mcp/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
